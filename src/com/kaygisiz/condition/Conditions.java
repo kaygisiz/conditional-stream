@@ -15,37 +15,37 @@
  */
 package com.kaygisiz.condition;
 
-import com.kaygisiz.condition.stream.ConditionStream;
+import com.kaygisiz.condition.stream.ConditionalStream;
 import com.kaygisiz.condition.stream.EndStream;
 
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Condition<T> implements ConditionStream<T> {
+public class Conditions<T> implements ConditionalStream<T> {
     private final T object;
 
-    private Condition(T object) {
+    private Conditions(T object) {
         this.object = object;
     }
 
-    public static <T> ConditionStream<T> of(T object) {
-        return new Condition<>(object);
+    public static <T> ConditionalStream<T> of(T object) {
+        return new Conditions<>(object);
     }
 
-    public <R> ConditionStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action) {
+    public <R> ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action) {
         Objects.requireNonNull(condition);
         return fi(condition.test(object), action);
     }
 
-    public <R> ConditionStream<T> fi(boolean condition, Function<? super T, ? extends R> action) {
+    public <R> ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends R> action) {
         if (condition) {
             action.apply(object);
         }
         return this;
     }
 
-    public <R> ConditionStream<T> witch(T object, Function<? super T, ? extends R> action) {
+    public <R> ConditionalStream<T> witch(T object, Function<? super T, ? extends R> action) {
         if (Objects.equals(this.object, object)) {
             action.apply(object);
         }

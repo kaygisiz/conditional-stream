@@ -18,12 +18,12 @@ package com.kaygisiz.condition.stream;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public interface ConditionStream<T> extends EndStream<T> {
-    <R> ConditionStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action);
+public interface ConditionalStream<T> extends EndStream<T> {
+    <R> ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action);
 
-    <R> ConditionStream<T> fi(boolean condition, Function<? super T, ? extends R> action);
+    <R> ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends R> action);
 
-    <R> ConditionStream<T> witch(T object, Function<? super T, ? extends R> action);
+    <R> ConditionalStream<T> witch(T object, Function<? super T, ? extends R> action);
 
     <R> EndStream<T> elsa(Function<? super T, ? extends R> action);
 }
