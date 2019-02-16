@@ -1,6 +1,11 @@
+# IntelliJ IDEA #
 .idea/*
 out/*
 *.iml
 
-# for mac users
+# Gradle #
+.gradle
+/build/
+
+# Mac OS #
 .DS_STORE
