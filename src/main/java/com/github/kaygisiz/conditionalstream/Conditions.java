@@ -15,8 +15,8 @@
  */
 package com.github.kaygisiz.conditionalstream;
 
-import com.kaygisiz.condition.stream.ConditionalStream;
-import com.kaygisiz.condition.stream.EndStream;
+import com.github.kaygisiz.conditionalstream.stream.ConditionalStream;
+import com.github.kaygisiz.conditionalstream.stream.EndStream;
 
 import java.util.Objects;
 import java.util.function.Function;
