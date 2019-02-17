@@ -4,7 +4,7 @@
 #### Apache Maven
 ```
 <dependency>
-    <groupId>com.github.kaygisiz</groupId>
+  <groupId>com.github.kaygisiz</groupId>
   <artifactId>conditionalstream</artifactId>
   <version>0.1</version>
   <type>pom</type>
