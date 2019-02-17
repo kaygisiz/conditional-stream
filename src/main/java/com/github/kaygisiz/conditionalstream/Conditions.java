@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kaygisiz.condition;
+package com.github.kaygisiz.conditionalstream;
 
 import com.kaygisiz.condition.stream.ConditionalStream;
 import com.kaygisiz.condition.stream.EndStream;

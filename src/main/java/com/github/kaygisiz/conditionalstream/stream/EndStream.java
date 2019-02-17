@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kaygisiz.condition.stream;
+package com.github.kaygisiz.conditionalstream.stream;
 
 import java.util.function.Function;
-import java.util.function.Predicate;
 
-public interface ConditionalStream<T> extends EndStream<T> {
-    <R> ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action);
-
-    <R> ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends R> action);
-
-    <R> ConditionalStream<T> witch(T object, Function<? super T, ? extends R> action);
-
-    <R> EndStream<T> elsa(Function<? super T, ? extends R> action);
+public interface EndStream<T> {
+    <R> R finalize(Function<? super T, ? extends R> action);
 }
