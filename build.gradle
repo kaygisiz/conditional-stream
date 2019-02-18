@@ -121,7 +121,7 @@ def customizePom(pom) {
             name 'Conditional Stream'
             url projectUrl
             organization {
-                name 'com.github.kaygisiz'
+                name groupId
                 url githubUrl
             }
             issueManagement {
