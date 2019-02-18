@@ -1,11 +1,14 @@
-# IntelliJ IDEA #
+## IntelliJ IDEA ##
 .idea/*
 out/*
 *.iml
 
-# Gradle #
+## Gradle ##
 .gradle
 /build/
 
-# Mac OS #
+# maven credentials
+gradle\.properties
+
+## Mac OS ##
 .DS_STORE

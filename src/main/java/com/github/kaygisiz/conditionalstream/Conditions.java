@@ -18,12 +18,15 @@ package com.github.kaygisiz.conditionalstream;
 import com.github.kaygisiz.conditionalstream.stream.ConditionalStream;
 import com.github.kaygisiz.conditionalstream.stream.EndStream;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Conditions<T> implements ConditionalStream<T> {
-    private final T object;
+    private T object;
+    private boolean runElsa = true;
 
     private Conditions(T object) {
         this.object = object;
@@ -33,31 +36,66 @@ public class Conditions<T> implements ConditionalStream<T> {
         return new Conditions<>(object);
     }
 
-    public <R> ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends T> action) {
         Objects.requireNonNull(condition);
-        return fi(condition.test(object), action);
+        return fi(condition.test(this.object), action);
     }
 
-    public <R> ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends T> action) {
         if (condition) {
-            action.apply(object);
+            performAction(this.object, action);
         }
         return this;
     }
 
-    public <R> ConditionalStream<T> witch(T object, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> witch(T object, Function<? super T, ? extends T> action) {
         if (Objects.equals(this.object, object)) {
-            action.apply(object);
+            performAction(object, action);
         }
         return this;
     }
 
-    public <R> EndStream<T> elsa(Function<? super T, ? extends R> action) {
-        action.apply(object);
+    public ConditionalStream<T> witch(List<T> objectList, Function<? super T, ? extends T> action) {
+        for (T object : objectList) {
+            if (Objects.equals(this.object, object)) {
+                performAction(object, action);
+                break;
+            }
+        }
         return this;
     }
 
-    public <R> R finalize(Function<? super T, ? extends R> action) {
-        return action.apply(object);
+    @SafeVarargs
+    public final ConditionalStream<T> witch(Function<? super T, ? extends T> action, T... objects) {
+        return witch(Arrays.asList(objects), action);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U> ConditionalStream<U> cast() {
+        return new Conditions<>((U) this.object);
+    }
+
+    public <U> ConditionalStream<U> branch(Function<? super T, ? extends U> action) {
+        return new Conditions<>(action.apply(this.object));
+    }
+
+    public EndStream<T> elsa(Function<? super T, ? extends T> action) {
+        if (runElsa) {
+            this.object = action.apply(this.object);
+        }
+        return this;
+    }
+
+    public T finalize(Function<? super T, ? extends T> action) {
+        return action.apply(this.object);
+    }
+
+    public T get() {
+        return this.object;
+    }
+
+    private void performAction(T object, Function<? super T, ? extends T> action) {
+        this.object = action.apply(object);
+        runElsa = false;
     }
 }
