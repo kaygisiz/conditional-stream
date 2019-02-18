@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
+    id 'application'
 }
 
 group 'com.github.kaygisiz'
@@ -11,6 +12,12 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+mainClassName = 'com.github.kaygisiz.example.Main'
+
+jar{
+    exclude('com/github/kaygisiz/example/**')
 }
 
 task sourceJar(type: Jar) {
