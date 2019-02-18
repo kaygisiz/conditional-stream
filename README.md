@@ -1,5 +1,5 @@
 ## Conditional Stream
-![Maven Central](https://img.shields.io/maven-central/v/com.github.kaygisiz/conditional-stream.svg?colorB=success&style=popout)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.kaygisiz/conditional-stream.svg?colorB=success&style=popout)](https://search.maven.org/artifact/com.github.kaygisiz/conditional-stream)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 #### Apache Maven
