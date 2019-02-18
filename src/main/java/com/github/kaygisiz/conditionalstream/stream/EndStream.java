@@ -17,6 +17,6 @@ package com.github.kaygisiz.conditionalstream.stream;
 
 import java.util.function.Function;
 
-public interface EndStream<T> {
-    <R> R finalize(Function<? super T, ? extends R> action);
+public interface EndStream<T> extends BaseStream<T> {
+    T finalize(Function<? super T, ? extends T> action);
 }

@@ -23,7 +23,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Conditions<T> implements ConditionalStream<T> {
-    private final T object;
+    private T object;
+    private boolean runElsa = true;
 
     private Conditions(T object) {
         this.object = object;
@@ -33,31 +34,42 @@ public class Conditions<T> implements ConditionalStream<T> {
         return new Conditions<>(object);
     }
 
-    public <R> ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> fi(Predicate<? super T> condition, Function<? super T, ? extends T> action) {
         Objects.requireNonNull(condition);
-        return fi(condition.test(object), action);
+        return fi(condition.test(this.object), action);
     }
 
-    public <R> ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends T> action) {
         if (condition) {
-            action.apply(object);
+            performAction(this.object, action);
         }
         return this;
     }
 
-    public <R> ConditionalStream<T> witch(T object, Function<? super T, ? extends R> action) {
+    public ConditionalStream<T> witch(T object, Function<? super T, ? extends T> action) {
         if (Objects.equals(this.object, object)) {
-            action.apply(object);
+            performAction(object, action);
         }
         return this;
     }
 
-    public <R> EndStream<T> elsa(Function<? super T, ? extends R> action) {
-        action.apply(object);
+    public EndStream<T> elsa(Function<? super T, ? extends T> action) {
+        if (runElsa) {
+            this.object = action.apply(this.object);
+        }
         return this;
     }
 
-    public <R> R finalize(Function<? super T, ? extends R> action) {
-        return action.apply(object);
+    public T finalize(Function<? super T, ? extends T> action) {
+        return action.apply(this.object);
+    }
+
+    public T get() {
+        return this.object;
+    }
+
+    private void performAction(T object, Function<? super T, ? extends T> action) {
+        this.object = action.apply(object);
+        runElsa = false;
     }
 }
