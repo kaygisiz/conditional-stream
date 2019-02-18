@@ -5,8 +5,16 @@ plugins {
     id 'application'
 }
 
-group 'com.github.kaygisiz'
-version '0.1'
+ext {
+    groupId = 'com.github.kaygisiz'
+    artifactId = 'conditional-stream'
+    latestVersion = '0.1'
+    githubUrl = 'https://github.com/kaygisiz'
+    projectUrl = githubUrl + '/conditional-stream'
+}
+
+group groupId
+version latestVersion
 
 sourceCompatibility = 1.8
 
@@ -16,7 +24,7 @@ repositories {
 
 mainClassName = 'com.github.kaygisiz.example.Main'
 
-jar{
+jar {
     exclude('com/github/kaygisiz/example/**')
 }
 
@@ -47,9 +55,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             customizePom(pom)
-            groupId 'com.github.kaygisiz'
-            artifactId 'conditional-stream'
-            version '0.1'
+            groupId groupId
+            artifactId artifactId
+            version latestVersion
 
             from components.java
 
@@ -111,24 +119,24 @@ def customizePom(pom) {
 
             description 'Create Conditional Stream of a Generic Type Object'
             name 'Conditional Stream'
-            url 'https://github.com/kaygisiz/conditional-stream'
+            url projectUrl
             organization {
                 name 'com.github.kaygisiz'
-                url 'https://github.com/kaygisiz'
+                url githubUrl
             }
             issueManagement {
                 system 'GitHub'
-                url 'https://github.com/kaygisiz/conditional-stream/issues'
+                url projectUrl + '/issues'
             }
             licenses {
                 license {
                     name 'Apache License 2.0'
-                    url 'https://github.com/kaygisiz/conditional-stream/blob/master/LICENSE'
+                    url projectUrl + '/blob/master/LICENSE'
                     distribution 'repo'
                 }
             }
             scm {
-                url 'https://github.com/kaygisiz/conditional-stream'
+                url projectUrl
                 connection 'scm:git:git://github.com/kaygisiz/conditional-stream.git'
                 developerConnection 'scm:git:ssh://git@github.com:kaygisiz/conditional-stream.git'
             }
