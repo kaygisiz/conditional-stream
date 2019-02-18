@@ -71,7 +71,7 @@ public class Conditions<T> implements ConditionalStream<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public <U> ConditionalStream<U> cast(Class<U> clazz) {
+    public <U> ConditionalStream<U> cast() {
         return new Conditions<>((U) this.object);
     }
 
