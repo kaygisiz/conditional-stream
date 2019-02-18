@@ -68,6 +68,15 @@ public class Conditions<T> implements ConditionalStream<T> {
         return this.object;
     }
 
+    @SuppressWarnings("unchecked")
+    public <U> ConditionalStream<U> cast(Class<U> clazz) {
+        return new Conditions<>((U) this.object);
+    }
+
+    public <U> ConditionalStream<U> branch(Function<? super T, ? extends U> action) {
+        return new Conditions<>(action.apply(this.object));
+    }
+
     private void performAction(T object, Function<? super T, ? extends T> action) {
         this.object = action.apply(object);
         runElsa = false;
