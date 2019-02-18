@@ -15,6 +15,7 @@
  */
 package com.github.kaygisiz.conditionalstream.stream;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -24,6 +25,10 @@ public interface ConditionalStream<T> extends EndStream<T>, BaseStream<T> {
     ConditionalStream<T> fi(boolean condition, Function<? super T, ? extends T> action);
 
     ConditionalStream<T> witch(T object, Function<? super T, ? extends T> action);
+
+    ConditionalStream<T> witch(List<T> objectList, Function<? super T, ? extends T> action);
+
+    ConditionalStream<T> witch(Function<? super T, ? extends T> action, T... objects);
 
     EndStream<T> elsa(Function<? super T, ? extends T> action);
 }

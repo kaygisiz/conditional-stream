@@ -18,6 +18,8 @@ package com.github.kaygisiz.conditionalstream;
 import com.github.kaygisiz.conditionalstream.stream.ConditionalStream;
 import com.github.kaygisiz.conditionalstream.stream.EndStream;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -53,6 +55,30 @@ public class Conditions<T> implements ConditionalStream<T> {
         return this;
     }
 
+    public ConditionalStream<T> witch(List<T> objectList, Function<? super T, ? extends T> action) {
+        for (T object : objectList) {
+            if (Objects.equals(this.object, object)) {
+                performAction(object, action);
+                break;
+            }
+        }
+        return this;
+    }
+
+    @SafeVarargs
+    public final ConditionalStream<T> witch(Function<? super T, ? extends T> action, T... objects) {
+        return witch(Arrays.asList(objects), action);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U> ConditionalStream<U> cast(Class<U> clazz) {
+        return new Conditions<>((U) this.object);
+    }
+
+    public <U> ConditionalStream<U> branch(Function<? super T, ? extends U> action) {
+        return new Conditions<>(action.apply(this.object));
+    }
+
     public EndStream<T> elsa(Function<? super T, ? extends T> action) {
         if (runElsa) {
             this.object = action.apply(this.object);
@@ -66,15 +92,6 @@ public class Conditions<T> implements ConditionalStream<T> {
 
     public T get() {
         return this.object;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <U> ConditionalStream<U> cast(Class<U> clazz) {
-        return new Conditions<>((U) this.object);
-    }
-
-    public <U> ConditionalStream<U> branch(Function<? super T, ? extends U> action) {
-        return new Conditions<>(action.apply(this.object));
     }
 
     private void performAction(T object, Function<? super T, ? extends T> action) {
