@@ -12,3 +12,5 @@ gradle\.properties
 
 ## Mac OS ##
 .DS_STORE
+
+**/example/
