@@ -8,7 +8,7 @@ plugins {
 ext {
     groupId = 'com.github.kaygisiz'
     artifactId = 'conditional-stream'
-    latestVersion = '0.1'
+    latestVersion = '0.2'
     githubUrl = 'https://github.com/kaygisiz'
     projectUrl = githubUrl + '/conditional-stream'
 }
