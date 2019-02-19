@@ -9,19 +9,19 @@ Download [the latest JAR][latest-jar]
 <dependency>
   <groupId>com.github.kaygisiz</groupId>
   <artifactId>conditional-stream</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <type>pom</type>
 </dependency>
 ```
 
 #### Gradle Groovy DSL
 ```
-implementation 'com.github.kaygisiz:conditional-stream:0.1'
+implementation 'com.github.kaygisiz:conditional-stream:0.2'
 ```
 
 #### Gradle Kotlin DSL
 ```
-compile("com.github.kaygisiz:conditional-stream:0.1")
+compile("com.github.kaygisiz:conditional-stream:0.2")
 ```
 
 [maven-central-badge]: https://img.shields.io/maven-central/v/com.github.kaygisiz/conditional-stream.svg?colorB=success&style=popout
